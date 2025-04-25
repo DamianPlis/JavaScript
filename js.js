@@ -65,12 +65,12 @@ function pickPCmove () {
 }
 
 function resetScore() {
-    localStorage.setItem("score", JSON.stringify(score))
     score = {
         wins: 0,
         losses: 0,
         ties: 0,
     }
+    localStorage.setItem("score", JSON.stringify(score))
     scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
 }
 
