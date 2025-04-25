@@ -36,9 +36,9 @@ function playGame (myMove) {
     } else if (result === "You lose") {
         score.losses += 1;
     }
-
+}
     localStorage.setItem("score", JSON.stringify(score))
-
+/*
     alert(`You pickes ${myMove}. The computer picked ${PCmove}. ${result}
 Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`)
 
@@ -46,7 +46,7 @@ resultElem.innerHTML = `${result}`
 picksElem.innerHTML = `You picked ${myMove}. The coumputer picked ${PCmove}`
 scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
 } 
-
+*/
 
 function pickPCmove () {
     const randomNumber = Math.random()
@@ -65,6 +65,7 @@ function pickPCmove () {
 }
 
 function resetScore() {
+    localStorage.setItem("score", JSON.stringify(score))
     score = {
         wins: 0,
         losses: 0,
