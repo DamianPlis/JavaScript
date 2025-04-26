@@ -1,4 +1,4 @@
-let todoList =  JSON.parse(localStorage.getItem(todoList))||[]
+let todoList =  JSON.parse(localStorage.getItem("todoList"))||[]
 displayTodoList();
 function addTodo() {
     console.log(todoList)
