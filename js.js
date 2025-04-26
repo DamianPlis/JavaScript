@@ -95,8 +95,8 @@ function autoPlay() {
     insertDiv.innerHTML = `<input id="interval" type="number" placeholder="autoplay speed in ms"><button onclick="RunAutoplay">Run autoplay</button>`
     isAutoPlayON = true
     } else {
-        RunAutoplay();
         stopAutoPlay = true
+        RunAutoplay();
     }
     
 }
