@@ -92,7 +92,7 @@ function autoPlay() {
     if (isAutoPlayON === false) {
         const insertDiv = document.querySelector("#autoplay-div")
 
-    insertDiv.innerHTML = `<input id="interval" type="number" placeholder="autoplay speed in ms"><button onclick="RunAutoplay">Run autoplay</button>`
+    insertDiv.innerHTML = `<input id="interval" type="number" placeholder="autoplay speed in ms"><button onclick="RunAutoplay()">Run autoplay</button>`
     isAutoPlayON = true
     } else {
         stopAutoPlay = true
