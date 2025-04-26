@@ -11,6 +11,7 @@ function addTodo() {
 
     if (input === "" || date === "") {
         return;
+        // pokud input nebo datum je prazdne tak return zastav funkci a pokracuj mimo ni
     }
     todoList.push({
         input,

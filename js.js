@@ -85,3 +85,35 @@ const picksElem = document.querySelector(".picks")
 const resultElem = document.querySelector(".result")
 
 scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
+
+let stopAutoPlay = false
+let isAutoPlayON = false
+function autoPlay() {
+    if (isAutoPlayON === false) {
+        const insertDiv = document.querySelector("#autoplay-div")
+
+    insertDiv.innerHTML = `<input id="interval" type="number" placeholder="autoplay speed in ms"><button onclick="RunAutoplay">Run autoplay</button>`
+    isAutoPlayON = true
+    } else {
+        RunAutoplay();
+        stopAutoPlay = true
+    }
+    
+}
+
+function RunAutoplay () {
+    if (stopAutoPlay === true) {
+        stopAutoPlay = false
+        clearInterval(intervalFunction)
+        return;
+    }
+
+    const interval = document.querySelector.value("#interval")
+    const insertDiv = document.querySelector("#autoplay-div")
+
+    insertDiv.innerHTML = `<button onclick="autoPlay()">Stop autoplay</button>`
+    const intervalFunction =  setInterval(function() {
+        myMove = pickPCmove();
+        playGame(myMove);
+    },interval)
+}
