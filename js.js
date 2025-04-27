@@ -86,43 +86,37 @@ const resultElem = document.querySelector(".result")
 
 scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
 
-let interval;
+let interval = 0;
 let isPlaying = false;
 let intervalId;
 
 function autoPlay() {
-    if (!isPlaying) {
-        isPlaying = true;
+    if (interval != 0) {
+        if (!isPlaying) {
+            isPlaying = true;
 
-        intervalId = setInterval(() => {
-        const myMove = pickComputerMove();
-        playGame(myMove);
-        }, interval);
+            intervalId = setInterval(() => {
+            const myMove = pickComputerMove();
+            playGame(myMove);
+            }, interval);
 
-        document.querySelector("#autoplay-button")
-        .innerHTML = 'Stop Play';
+            document.querySelector("#autoplay-button")
+            .innerHTML = `Stop Auto Play (every${interval}ms)`;
 
+        } else {
+            isPlaying = false;
+            clearInterval(intervalId);
+
+            document.querySelector("#autoplay-button")
+            .innerHTML = 'Auto Play';
+        }
     } else {
-        isPlaying = false;
-        clearInterval(intervalId);
-
-        document.querySelector("#autoplay-button")
-        .innerHTML = 'Auto Play';
+        document.querySelector("#autoplay-div").innerHTML =  `<input type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`
     }
 }
-function RunAutoplay () {
-    if (stopAutoPlay === true) {
-        stopAutoPlay = false
-        clearInterval(intervalFunction)
-        return;
+
+ function onKeyDown(event) {
+    if (event.key === "Enter") {
+        autoPlay();
     }
-
-    const interval = document.querySelector.value("#interval")
-    const insertDiv = document.querySelector("#autoplay-div")
-
-    insertDiv.innerHTML = `<button onclick="autoPlay()">Stop autoplay</button>`
-    const intervalFunction =  setInterval(function() {
-        myMove = pickPCmove();
-        playGame(myMove);
-    },interval)
-}
+ }
