@@ -86,21 +86,30 @@ const resultElem = document.querySelector(".result")
 
 scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
 
-let stopAutoPlay = false
-let isAutoPlayON = false
+let interval;
+let isPlaying = false;
+let intervalId;
+
 function autoPlay() {
-    if (isAutoPlayON === false) {
-        const insertDiv = document.querySelector("#autoplay-div")
+    if (!isPlaying) {
+        isPlaying = true;
 
-    insertDiv.innerHTML = `<input id="interval" type="number" placeholder="autoplay speed in ms"><button onclick="RunAutoplay()">Run autoplay</button>`
-    isAutoPlayON = true
+        intervalId = setInterval(() => {
+        const myMove = pickComputerMove();
+        playGame(myMove);
+        }, interval);
+
+        document.querySelector("#autoplay-button")
+        .innerHTML = 'Stop Play';
+
     } else {
-        stopAutoPlay = true
-        RunAutoplay();
-    }
-    
-}
+        isPlaying = false;
+        clearInterval(intervalId);
 
+        document.querySelector("#autoplay-button")
+        .innerHTML = 'Auto Play';
+    }
+}
 function RunAutoplay () {
     if (stopAutoPlay === true) {
         stopAutoPlay = false
