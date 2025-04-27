@@ -92,8 +92,8 @@ let isPlaying = false;
 let intervalId;
 
 function autoPlay() {
-    interval = document.querySelector("#interval").value
     if (interval != 0) {
+        interval = document.querySelector("#interval").value
         if (!isPlaying) {
             isPlaying = true;
 
