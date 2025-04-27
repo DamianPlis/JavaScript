@@ -71,7 +71,7 @@ function resetScore() {
         ties: 0,
     }
     localStorage.setItem("score", JSON.stringify(score))
-    scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
+    scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`;
 }
 
 let score = JSON.parse(localStorage.getItem("score")) || {
@@ -86,11 +86,13 @@ const resultElem = document.querySelector(".result")
 
 scoreElem.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties ${score.ties}`
 
+let htmlRenderHelper = "";
 let interval = 0;
 let isPlaying = false;
 let intervalId;
 
 function autoPlay() {
+    interval = document.querySelector("#interval").value
     if (interval != 0) {
         if (!isPlaying) {
             isPlaying = true;
@@ -111,12 +113,24 @@ function autoPlay() {
             .innerHTML = 'Auto Play';
         }
     } else {
-        document.querySelector("#autoplay-div").innerHTML =  `<input type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`
+        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`;
+        document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
     }
 }
 
  function onKeyDown(event) {
-    if (event.key === "Enter") {
-        autoPlay();
+    interval = document.querySelector("#interval").value
+
+    if (typeof interval === "number") {
+        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`;
+        document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
+        if (event.key === "Enter") {
+            autoPlay();
+        }
+    } else {
+        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input><p>The input value is not a number</p>`;
+        
     }
+
+    
  }
