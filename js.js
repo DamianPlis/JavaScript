@@ -98,7 +98,7 @@ function autoPlay() {
             isPlaying = true;
 
             intervalId = setInterval(() => {
-            const myMove = pickComputerMove();
+            const myMove = pickPCmove();
             playGame(myMove);
             }, interval);
 
@@ -118,7 +118,7 @@ function autoPlay() {
     }
 }
 
- function onKeyDown(event) {
+ function keyDown(event) {
     interval = document.querySelector("#interval").value
 
     if (typeof interval === "number") {
