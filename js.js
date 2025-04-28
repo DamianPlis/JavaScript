@@ -103,7 +103,7 @@ function autoPlay() {
             }, interval);
 
             document.querySelector("#autoplay-button")
-            .innerHTML = `Stop Auto Play (every${interval}ms)`;
+            .innerHTML = `Stop Auto Play (every ${interval} ms)`;
 
         } else {
             isPlaying = false;
@@ -113,8 +113,34 @@ function autoPlay() {
             .innerHTML = 'Auto Play';
         }
     } else {
+        if (!isPlaying) {
+            isPlaying = true;
+
+            intervalId = setInterval(() => {
+            const myMove = pickPCmove();
+            playGame(myMove);
+            }, interval);
+
+            document.querySelector("#autoplay-button")
+            .innerHTML = `Stop Auto Play (every ${interval} ms)`;
+
+        } else {
+            isPlaying = false;
+            clearInterval(intervalId);
+
+            document.querySelector("#autoplay-button")
+            .innerHTML = 'Auto Play';
+        }
+
+
+        
+        if (!htmlRenderHelper) {
+            console.log(`interval v ms (plati jen click stop)${interval}`)
+            console.log(document.querySelector("#interval").value)
+        }
         htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`;
         document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
+        interval = document.querySelector("#interval").value
     }
 }
 
