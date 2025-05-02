@@ -150,18 +150,17 @@ function autoPlay() {
  function keyDown(event) {
     console.log(event)
     interval = document.querySelector("#interval").value
-
-    if (typeof interval === "number") {
-        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input>`;
-        document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
-        if (event.key === "Enter") {
-            autoPlay();
-        }
+    if (parseInt(event.key) != "NaN") {
+        return;
     } else {
-        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input><p>The input value is not a number</p>`;
-        document.getElementById("autoplay-div").innerHTML = htmlRenderHelper
-
-        keyDownListener()
+        if (typeof interval === "number") {
+            if (event.key === "Enter") {
+                autoPlay();
+            }
+        } else {
+            htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input><p>The input value is not a number</p>`;
+            document.getElementById("autoplay-div").innerHTML = htmlRenderHelper
+        }
     }
 
     
