@@ -1,3 +1,13 @@
+// eventlisteneri misto onclick
+document.getElementById("input").addEventListener("keydown", (event) => {
+    onKeyDown(event)
+})
+document.getElementById("add-button").addEventListener("click", () => {
+    addTodo()
+})
+
+
+
 let todoList =  JSON.parse(localStorage.getItem("todoList"))||[]
 displayTodoList();
 function addTodo() {
@@ -29,10 +39,16 @@ function displayTodoList() {
     for (let i = 0; i < todoList.length; i++) {
         const todoNumbers = todoList[i].input
         const todoDate = todoList[i].date
-        todoListRenderedHTML += `<div><p style= display:inline-block;>${todoNumbers}</p> <p style="display:inline-block;">${todoDate}</p><button class="delete-button" onclick="deleteTodo(${i})">Delete</button></div>`
+        todoListRenderedHTML += `<div><p style= display:inline-block;>${todoNumbers}</p> <p style="display:inline-block;">${todoDate}</p><button id="delete-button">Delete</button></div>`
     }
 
     document.querySelector("#insert-div").innerHTML = todoListRenderedHTML;
+
+    document.querySelectorAll("#delete-button").forEach((deleteElem, index) => {
+        deleteElem.addEventListener("click", (index) => {
+            deleteTodo(index)
+        })
+    })
 }
 
 function onKeyDown(event) {

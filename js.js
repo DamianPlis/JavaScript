@@ -1,3 +1,22 @@
+// listeneri misto onclick
+document.getElementById("rock-button").addEventListener("click", () => {
+    playGame("rock")
+})
+document.getElementById("paper-button").addEventListener("click", () => {
+    playGame("paper")
+})
+document.getElementById("scissors-button").addEventListener("click", () => {
+    playGame("scissors")
+})
+document.getElementById("reset-score-button").addEventListener("click", () => {
+    resetScore()
+})
+document.getElementById("autoplay-button").addEventListener("click", () => {
+    autoPlay()
+})
+
+
+
 function playGame (myMove) {
     const PCmove = pickPCmove()
 
@@ -138,25 +157,40 @@ function autoPlay() {
             console.log(`interval v ms (plati jen click stop)${interval}`)
             console.log(document.querySelector("#interval").value)
         }
-        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`;
+        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input>`;
         document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
+
+        keyDownListener()
+
         interval = document.querySelector("#interval").value
     }
 }
 
  function keyDown(event) {
+    console.log(event)
     interval = document.querySelector("#interval").value
 
     if (typeof interval === "number") {
-        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input>`;
+        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input>`;
         document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
+
+        keyDownListener()
+
         if (event.key === "Enter") {
             autoPlay();
         }
     } else {
-        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again" onkeydown="keyDown(event)"></input><p>The input value is not a number</p>`;
-        
+        htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input><p>The input value is not a number</p>`;
+        document.getElementById("autoplay-div").innerHTML = htmlRenderHelper
+
+        keyDownListener()
     }
 
     
  }
+// funkce ktera je jenom protoze musim to pouzit 3 krat
+function keyDownListener () {
+    document.getElementById("interval").addEventListener("keydown", (event) => {
+        keyDown(event)
+    })
+}
