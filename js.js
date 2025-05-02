@@ -98,6 +98,8 @@ let score = JSON.parse(localStorage.getItem("score")) || {
     losses: 0,
     ties: 0,
 };
+console.log("passed line 100 aka let score")
+console.log(score)
 
 const scoreElem = document.querySelector(".W-L-T")
 const picksElem = document.querySelector(".picks")
