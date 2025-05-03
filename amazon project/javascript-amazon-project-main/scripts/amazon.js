@@ -3,6 +3,7 @@ console.log(products)
 
 let html = ""
 for (let i = 0; i > products.length; i++) {
+    console.log(html)
     html += 
     `<div class="product-container">
         <div class="product-image-container">
