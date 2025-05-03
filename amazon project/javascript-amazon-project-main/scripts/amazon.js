@@ -2,7 +2,7 @@ import {products} from "../data/products.js"
 console.log(products)
 
 let html = ""
-for (let i = 0; i > products.length; i++) {
+for (let i = 0; i < products.length; i++) {
     console.log(html)
     html += 
     `<div class="product-container">
@@ -51,5 +51,5 @@ for (let i = 0; i > products.length; i++) {
           Add to Cart
         </button>
       </div>`
-    document.querySelector(".main").innerHTML = html
+    document.querySelector(".products-grid").innerHTML = html
 }
