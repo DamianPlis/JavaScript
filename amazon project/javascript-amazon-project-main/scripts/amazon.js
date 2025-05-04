@@ -75,7 +75,7 @@ products.forEach((products, i) => {
         </div>
 
         <div class="product-price">
-          $${products.priceCents / 100}
+          $${(products.priceCents / 100).toFixed(2)}c
         </div>
 
         <div class="product-quantity-container">
@@ -100,9 +100,15 @@ products.forEach((products, i) => {
           Added
         </div>
 
-        <button class="add-to-cart-button button-primary">
+        <button id="add-to-cart" class="add-to-cart-button button-primary">
           Add to Cart
         </button>
       </div>`
     document.querySelector(".products-grid").innerHTML = html
 });
+
+document.querySelectorAll("#add-to-cart").forEach((buttonElem) => {
+    buttonElem.addEventListener("click", () => {
+         
+    })
+})
