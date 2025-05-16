@@ -113,61 +113,50 @@ let isPlaying = false;
 let intervalId;
 
 function autoPlay() {
-    if (interval != 0) {
-        interval = document.querySelector("#interval").value
-        if (!isPlaying) {
-            isPlaying = true;
+    const inputElem = document.querySelector("#interval");
 
-            intervalId = setInterval(() => {
+    if (!inputElem) {
+        // Create input box if not yet present
+        const html = `<input id="interval" type="number" placeholder="Enter interval in ms and press Auto Play again"></input>`;
+        document.querySelector("#autoplay-div").innerHTML = html;
+        keyDownListener();
+        return;
+    }
+
+    const inputVal = parseInt(inputElem.value);
+
+    if (isNaN(inputVal) || inputVal <= 0) {
+        alert("Please enter a valid positive number for the interval.");
+        return;
+    }
+
+    interval = inputVal;
+
+    if (!isPlaying) {
+        isPlaying = true;
+
+        intervalId = setInterval(() => {
             const myMove = pickPCmove();
             playGame(myMove);
-            }, interval);
+        }, interval);
 
-            document.querySelector("#autoplay-button")
-            .innerHTML = `Stop Auto Play (every ${interval} ms)`;
-
-        } else {
-            isPlaying = false;
-            clearInterval(intervalId);
-
-            document.querySelector("#autoplay-button")
-            .innerHTML = 'Auto Play';
-        }
+        document.querySelector("#autoplay-button").innerHTML = `Stop Auto Play (every ${interval} ms)`;
     } else {
-        if (!htmlRenderHelper) {
-            console.log(`interval v ms (plati jen click stop)${interval}`)
-            htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input>`;
-            document.querySelector("#autoplay-div").innerHTML =  htmlRenderHelper;
-
-            keyDownListener()
-
-            interval = document.querySelector("#interval").value
-            console.log(document.querySelector("#interval").value)
-        }
+        isPlaying = false;
+        clearInterval(intervalId);
+        document.querySelector("#autoplay-button").innerHTML = 'Auto Play';
     }
 }
-
- function keyDown(event) {
-    console.log(event)
-    interval = document.querySelector("#interval").value
-    if (parseInt(event.key) != "NaN") {
-        return;
-    } else {
-        if (typeof interval === "number") {
-            if (event.key === "Enter") {
-                autoPlay();
-            }
-        } else {
-            htmlRenderHelper = `<input  id="interval" type="number" placeholder="input interval in ms then click autoplay again"></input><p>The input value is not a number</p>`;
-            document.getElementById("autoplay-div").innerHTML = htmlRenderHelper
-        }
+function keyDown(event) {
+    if (event.key === "Enter") {
+        autoPlay();
     }
+}
 
     
  }
 // funkce ktera je jenom protoze musim to pouzit 3 krat
-function keyDownListener () {
-    document.getElementById("interval").addEventListener("keydown", (event) => {
-        keyDown(event)
-    })
+function keyDownListener() {
+    const intervalInput = document.getElementById("interval");
+    intervalInput.addEventListener("keydown", keyDown);
 }
