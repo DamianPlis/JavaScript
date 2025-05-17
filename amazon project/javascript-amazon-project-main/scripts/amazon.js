@@ -100,7 +100,7 @@ products.forEach((products, i) => {
           Added
         </div>
 
-        <button id="add-to-cart" class="add-to-cart-button button-primary">
+        <button id="add-to-cart" class="add-to-cart-button button-primary" data-product-id=${products.id}>
           Add to Cart
         </button>
       </div>`
@@ -109,6 +109,11 @@ products.forEach((products, i) => {
 
 document.querySelectorAll("#add-to-cart").forEach((buttonElem) => {
     buttonElem.addEventListener("click", () => {
-         
+        const productId = buttonElem.dataset.productId
+        cart.push({
+            productId,
+            quantity : 1
+            
+        })
     })
 })

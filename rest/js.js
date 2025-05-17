@@ -154,7 +154,7 @@ function keyDown(event) {
 }
 
     
- }
+
 // funkce ktera je jenom protoze musim to pouzit 3 krat
 function keyDownListener() {
     const intervalInput = document.getElementById("interval");
