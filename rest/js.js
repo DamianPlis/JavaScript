@@ -136,10 +136,8 @@ function autoPlay() {
         isPlaying = true;
 
         intervalId = setInterval(() => {
-            timeTaken = Date.now()
             const myMove = pickPCmove();
             playGame(myMove);
-            timeTaken = Date.now() - timeTaken - interval
             console.log(timeTaken)
         }, interval);
 
