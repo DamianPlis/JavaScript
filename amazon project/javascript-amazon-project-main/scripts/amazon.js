@@ -1,4 +1,6 @@
-import {products} from "../data/products.js"
+import { products } from "../data/products.js"
+import { formatCurrency } from "../utilities/formatCurrrency.js"
+import { addToCart } from "cart.js"
 console.log(products)
 
 let html = ""
@@ -57,7 +59,7 @@ for (let i = 0; i < products.length; i++) {
 
 
 products.forEach((products, i) => {
-    html += 
+  html +=
     `<div class="product-container" id=${products.id}>
         <div class="product-image-container">
           <img class="product-image" src="${products.image}">
@@ -104,16 +106,25 @@ products.forEach((products, i) => {
           Add to Cart
         </button>
       </div>`
-    document.querySelector(".products-grid").innerHTML = html
+  document.querySelector(".products-grid").innerHTML = html
 });
 
 document.querySelectorAll("#add-to-cart").forEach((buttonElem) => {
-    buttonElem.addEventListener("click", () => {
-        const productId = buttonElem.dataset.productId
-        cart.push({
-            productId,
-            quantity : 1
-            
-        })
-    })
+  buttonElem.addEventListener("click", () => {
+
+    const productId = buttonElem.dataset.productId
+    addToCart(productId)
+    updateCartCount()
+
+  })
 })
+
+function updateCartCount() {
+  let cartQuantity = 0
+
+  cart.forEach(cartItem => {
+    cartQuantity = cartItem.quantity
+  });
+
+  document.getElementById("cart-quantity").innerHTML = cartQuantity
+}
