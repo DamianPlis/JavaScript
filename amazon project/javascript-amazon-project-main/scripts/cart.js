@@ -4,7 +4,7 @@ import { formatCurrency } from "./utilities/formatCurrency.js"
 export let cart = JSON.parse(localStorage.getItem("cart")) || []
 
 export function addToCart(productId) {
-    let matchedItem
+    let matchingItem
     //find a matched item in the cart
     cart.forEach((cartItem) => {
         if (productId === cartItem.productId) {
@@ -12,8 +12,8 @@ export function addToCart(productId) {
         }
     });
     // if it exists (true) then update the quantity
-    if (matchedItem) {
-        matchedItem.quantity++
+    if (matchingItem) {
+        matchingItem.quantity++
     } else {
         cart.push({
             productId: productId,
