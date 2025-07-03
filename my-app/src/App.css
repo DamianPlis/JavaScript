@@ -1,0 +1,356 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*
+
+
+
+
+*/
+
+:root {
+    color-scheme: dark light;
+    --background-color-dark: rgb(10, 10, 10);
+    --background-color-light: rgb(219, 219, 219);
+    --text-color-dark: white;
+    --text-color-light: black;
+}
+
+p{
+    margin: 0;
+}
+
+.kalendar-nazev {
+    text-align: center;
+    font-size: 30px;
+    font-family: "Roboto";
+}
+
+.kalendar-akci2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: "Roboto";
+}
+/*pro tlacitko na jinou akci*/
+.akce-tlacitko {
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    padding: 5px 30px 5px 30px;
+    transition: var(--background-color-dark) 0.15s, var(--background-color-light) 0.15s;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.akce-tlacitko:hover {
+    background: rgb(86, 86, 86)!important;
+    color: white;
+}
+
+.akce-tlacitko-light {
+    color: black;
+}
+
+.akce-tlacitko-dark {
+    color: white;
+}
+
+/**/
+.ozveny-stinu2, .ozveny-stinu2-navrat, .ozveny-stinu2-coming-soon{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.organizatori-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.organizatori-text {
+    display: inline-block;
+    flex: 1;
+}
+
+
+/*
+@media only screen and (min-width: 1500px) {
+    .ozveny-stinu2 {
+        display: flex;
+        width: 20%;
+    }
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .ozveny-stinu2 {
+        display: flex;
+        width: 30%;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 999px){
+    .ozveny-stinu2 {
+        display: flex;
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .ozveny-stinu2 {
+        display: flex;
+        width: 60%;
+    }
+}
+*/
+    
+
+.ozveny2-popis {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ozveny2-img {
+    flex: 1;
+    display: flex;
+}
+
+.datum-left {
+    display: block;
+}
+.datum-left2 {
+    display: inline-block;
+}
+
+.datum-left3 {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.moznost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+
+
+
+.datum-right {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.datumy {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+/* Obecné nastavení stránky */
+body {
+    /* background-color: light-dark(rgb(219, 219, 219),rgb(10, 10, 10)); */
+    /* color: light-dark(white,black); */
+    background-color: rgb(10, 10, 10);
+    color: white;
+    width: 100%;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    padding-top: 100px;
+}
+/*nastaveni pro light a dark mode*/
+body.light {
+    background-color: rgb(219, 219, 219);
+    color: black;
+}
+
+body.dark {
+    background-color: rgb(10, 10, 10);
+    color: white;
+}
+
+/* Navigační menu */
+nav {
+    position: fixed;
+    width: 100%;
+    padding: 1rem;
+    height: 83px;
+    z-index: 5;
+    margin-top: 0px;
+    top: 0;
+    left: 0;
+    background-image: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/temný%20les%203.jpg);
+
+}
+
+/* poloha */
+.pravo {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+/* menu */
+.menu {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.menu-btn {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+
+.side-menu {
+    position: fixed;  
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: slategray;
+    transition: right 0.3s;
+    flex-direction: column;
+    z-index: 5;
+    display: flex;
+    padding-top: 60px;
+    color: black;
+}
+
+.side-menu-open {
+    right: 0;
+}
+
+.center {
+    text-align: center;
+}
+/*styly pro submenumenu*/
+.menu-item-s-submenu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.ma-submenu {
+    cursor: pointer;
+}
+
+.submenu {
+    display: none;
+    flex-direction: column;
+    padding-left: 20px;
+    margin-top: 5px;
+    transition: opacity 0.15s;
+}
+
+.menu-item-s-submenu:hover .submenu {
+    display: flex;
+}
+/* Styl pro dark light tlacitko */
+.darkXlight {
+    background-color: transparent;
+    bottom: 20px;
+    right: 20px;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: left;
+}
+/* Styl pro odkazy v menu */
+.side-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+}
+.side-menu a:hover {
+    background: darkgray;
+}
+
+/* písmo */
+h4{
+    font-style: oblique;
+    margin-top: -7px;
+}
+
+h1{
+    font-size: 33px;
+    margin-top: 3px;
+}
+
+.italic{
+   font-style: italic;
+}
+
+/* obecne styly k stránce*/
+
+.ozveny-stinu-link {
+    text-decoration: none;
+    color: rgb(192, 210, 230) !important;
+}
+
+.popis-ozveny-stinu {
+    text-align: center;
+    font-family: "Roboto" , Arial;
+
+}
+
+a{
+    color: aqua;
+
+}
