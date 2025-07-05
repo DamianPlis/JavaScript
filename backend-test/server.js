@@ -1,15 +1,27 @@
 const express = require('express');
-const path = require('path');
+const bcrypt = require('bcrypt');
 const fs = require('fs');
-const bcrypt = require('bcryptjs');
+const path = require('path');
+const session = require('express-session');
 
 const app = express();
 const port = 3000;
+const USERS_FILE = path.join(__dirname, 'users.json');
 
+const key = bcrypt.hash("cau cau cau", 10)
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: `${key}`, // 🔒 change this!
+    resave: false,
+    saveUninitialized: false
+}));
 
-const USERS_FILE = path.join(__dirname, 'users.json');
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.get('/signuphtml', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'signup.html'));
@@ -52,37 +64,58 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const users = getUsers();
-
     const user = users.find(u => u.username === username);
-    if (!user) return res.send('<h2>User not found.</h2><a href="/">Try again</a>');
+    if (!user) return res.send('User not found. <a href="/">Try again</a>');
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-        res.send(`
-            <p>LOGIN SUCSESSFULL</p>
-            <h1>hello ${user.username}</h1>
-            <form action="/delete" method="POST">
-                <input type="hidden" name="username" value="${user.username}">
-                <button type="submit">Delete your account</button>
-            </form>
-            `);
-    } else {
-        res.send('<h2>Wrong password 😬</h2><a href="/">Try again</a>');
-    }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.send('Wrong password. <a href="/">Try again</a>');
+
+    // ✅ Store session
+    req.session.username = user.username;
+
+    res.send(`
+    <h2>Welcome, ${user.username}!</h2>
+    <p><a href="/delete">Delete your account</a></p>
+    <p><a href="/logout">Logout</a></p>
+  `);
 });
 
-app.post("/delete", (req, res) => {
-    const { username } = req.body;
+// GET /delete - show delete confirmation form
+app.get('/delete', (req, res) => {
+    if (!req.session.username) return res.send('Not logged in.');
+    res.send(`
+    <h2>Are you sure you want to delete your account?</h2>
+    <form method="POST" action="/delete">
+      <input type="password" name="confirmPassword" placeholder="Confirm password" required />
+      <button type="submit">Delete My Account</button>
+    </form>
+  `);
+});
+
+// POST /delete - delete only the logged-in user
+app.post('/delete', async (req, res) => {
+    const { confirmPassword } = req.body;
     const users = getUsers();
+    const currentUser = users.find(u => u.username === req.session.username);
+    if (!currentUser) return res.send('Not logged in.');
 
-    // Filter out the user to delete
-    const updatedUsers = users.filter(u => u.username !== username);
+    const match = await bcrypt.compare(confirmPassword, currentUser.password);
+    if (!match) return res.send('Password incorrect. <a href="/delete">Try again</a>');
 
-    // Save updated users
+    const updatedUsers = users.filter(u => u.username !== currentUser.username);
     saveUsers(updatedUsers);
 
-    res.send('<h2>Account deleted successfully.</h2><a href="/">Go to login</a>');
-})
+    req.session.destroy(() => {
+        res.send('Account deleted. <a href="/">Go home</a>');
+    });
+});
+
+// GET /logout - end session
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.send('Logged out. <a href="/">Login again</a>');
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
