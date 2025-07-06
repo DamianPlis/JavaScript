@@ -14,7 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: `${key}`, // 🔒 change this!
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,     // ⛔ Prevents JS access
+        secure: false,      // Set to true **only** with HTTPS
+    },
 }));
 
 
@@ -52,12 +56,14 @@ app.post('/signup', async (req, res) => {
         return res.send('<h2>User already exists.</h2><a href="/signup.html">Try again</a>');
     }
 
-    // Hash password
+    // Hash password and secure
     const hashedPassword = await bcrypt.hash(password, 10);
     users.push({ username, password: hashedPassword });
 
+    ;
+
     saveUsers(users);
-    res.send('<h2>Account created! ✅</h2><a href="/">Go to login</a>');
+    res.send(`<h2>Account created! ✅</h2><a href="/">Go to login</a><p>For : ${preventXSS(username, req, "s")}</p>`);
 });
 
 // 🔐 Login endpoint
@@ -74,7 +80,7 @@ app.post('/login', async (req, res) => {
     req.session.username = user.username;
 
     res.send(`
-    <h2>Welcome, ${user.username}!</h2>
+    <h2>Welcome, ${preventXSS(user.username, req, "l")}!</h2>
     <p><a href="/delete">Delete your account</a></p>
     <p><a href="/logout">Logout</a></p>
   `);
@@ -116,6 +122,39 @@ app.get('/logout', (req, res) => {
         res.send('Logged out. <a href="/">Login again</a>');
     });
 });
+
+function preventXSS(username, req, action) {
+    if (typeof username === 'string') {
+        if (action === "l") {
+            if (/&/.test(username) || /</.test(username) || />/.test(username) || /"/.test(username) || /'/.test(username)) {
+                console.warn('XSS attempt detected in username:', username, 'from IP:', req.ip);
+            }
+            return sanitizeUsername(username)
+        } else if (action === "s") {
+            if (/&/.test(username) || /</.test(username) || />/.test(username) || /"/.test(username) || /'/.test(username)) {
+                console.warn('XSS attempt detected in username:', username, 'from IP:', req.ip);
+                return sanitizeUsername(username) + ",- please stop trying to hack me!";
+            } else {
+                return username;
+            }
+        } else {
+            console.error("Invalid action:", action);
+            return "Error: Invalid action";
+        }
+    } else {
+        console.error("Invalid username type:", typeof username);
+        return "Error: Invalid username type";
+
+    }
+    function sanitizeUsername(username) {
+        return username
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+}
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
