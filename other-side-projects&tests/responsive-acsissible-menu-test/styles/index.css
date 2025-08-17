@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    border-bottom: 1px solid hsl(0 0 60%);
+    background-color: slategray;
+}
+
+nav ul,
+nav li {
+    display: flex;
+    /*removes bullet points*/
+    list-style: none;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
+    padding: 1.25em 2em;
+    flex-direction: row;
+    text-decoration: none;
+    color: white;
+    transition: backround-color 200ms ease-in-out;
+}
+
+nav a:hover {
+    background-color: darkgray;
+}
+
+.first-link {
+    margin-right: auto;
+}
+
+.active {
+    border-bottom: 2px solid hsl(0 0 95%);
+}
+
+nav svg {
+    width: 1em;
+    height: 1em;
+    fill: white;
+}
+
+#mobileMenu {
+    display: none;
+}
+
+@media screen and (max-width: 750px) {
+    #mobileMenu {
+        position: fixed;
+        right: -100%;
+        width: min(430px, 70%);
+        height: 100%;
+        background-color: slategray;
+        transition: right 0.3s ease-out;
+        flex-direction: column;
+        z-index: 100;
+        display: flex;
+        padding-top: 10px;
+        color: black;
+        top: 0;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.show-icon {
+    display: block !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.show-mobile {
+    display: flex;
+}
+
+.open~.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+}
+
+.overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.0);
+    transition: background-color 300ms ease-out;
+    pointer-events: none;
+}
+
+.open {
+    right: 0 !important;
+}
+
+#hamburger-menu {
+    display: none;
+    width: 70px;
+    height: 70px;
+    background: none;
+    border: none;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.close-menu .close-icon {
+    width: 70px;
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+    /* optional centering */
+    fill: white;
+    /* ensures it matches your links */
+}
+
+#close-menu {
+    background: none;
+    /* Remove background */
+    border: none;
+    /* Remove border */
+    cursor: pointer;
+    /* Add pointer cursor */
+    width: 70px;
+    /* Set the width */
+    height: 70px;
+    /* Set the height */
+    z-index: 100000;
+    /* Ensure it appears above other elements */
+    margin-bottom: 60px;
+    margin-left: auto;
+    margin-right: 10px;
+}
