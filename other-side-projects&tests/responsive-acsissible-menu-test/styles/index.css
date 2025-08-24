@@ -21,6 +21,7 @@ nav ul {
 
 nav li {
     position: relative;
+    display: flex;
 }
 
 nav a {
@@ -71,7 +72,6 @@ nav li:hover svg {
         flex-direction: column;
         z-index: 100;
         display: flex;
-        padding-top: 10px;
         color: black;
         top: 0;
     }
@@ -115,9 +115,13 @@ nav li:hover svg {
     height: 70px;
     background: none;
     border: none;
-    margin: 10px auto 0 10px;
+    margin: 10px 10px 0 auto;
     cursor: pointer;
     z-index: 100000;
+}
+
+#close-menu {
+    display: block;
 }
 
 .close-menu .close-icon {
