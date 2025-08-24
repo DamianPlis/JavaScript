@@ -15,8 +15,12 @@ function updateNavbar() {
         mobileMenu.classList.remove("hide")
         return
     } 
+    if (mobileMenu.classList.contains("open")) {
+        openMenu()
+    }
     PCmenu.classList.remove("hide")
     mobileMenu.classList.add("hide")
+    mobileMenu.classList.remove("open")
     hamburgerMenuIcon.classList.add("hide")
     hamburgerMenuIcon.classList.remove("show-icon")
 
