@@ -1,14 +1,7 @@
 // a function that gets a matching product by its id
 export function matchProduct(productId) {
-  let matchedProduct
-
-  products.forEach(product => {
-    if (product.id === productId) {
-      matchedProduct = product
-    }
-
-    return matchedProduct
-  });
+  const matchedProduct = products.find(product => product.id === productId);
+  return matchedProduct;
 }
 
 // actual data

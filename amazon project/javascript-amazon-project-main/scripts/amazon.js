@@ -1,6 +1,6 @@
 import { products } from "../data/products.js"
-import { formatCurrency } from "../utilities/formatCurrrency.js"
-import { addToCart } from "cart.js"
+import { formatCurrency } from "./utilities/formatCurrency.js"
+import { addToCart, cart } from "./cart.js"
 console.log(products)
 
 let html = ""
@@ -123,8 +123,10 @@ function updateCartCount() {
   let cartQuantity = 0
 
   cart.forEach(cartItem => {
-    cartQuantity = cartItem.quantity
+    cartQuantity += cartItem.quantity
   });
 
   document.getElementById("cart-quantity").innerHTML = cartQuantity
 }
+
+updateCartCount()

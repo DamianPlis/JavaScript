@@ -4,7 +4,13 @@ import { formatCurrency } from "./utilities/formatCurrency.js"
 export let cart = JSON.parse(localStorage.getItem("cart")) || []
 
 export function addToCart(productId) {
+    let numberOfProductsAdded = 0
     let matchingItem
+
+    // TODO make some system for the <select> to add more products at the same time
+    //document.querySelector("")
+
+
     //find a matched item in the cart
     cart.forEach((cartItem) => {
         if (productId === cartItem.productId) {
@@ -18,7 +24,7 @@ export function addToCart(productId) {
         cart.push({
             productId: productId,
             quantity: 1,
-            deliveryOption: "1",
+            deliveryOptionId: "1",
         })
     }
     saveLocalStorage()
